@@ -68,3 +68,10 @@ Since our registry is empty, this should be pretty fast.
 You'll get an output saying that your replica has been created and that it's status has changed to __Syncing__:
 
 ![syncing replica](/images/2.png)
+
+Now let's verify that our replica is up and running :
+
+`az acr replication show -n centralus -r youracrname -o table`
+
+__Status__ should be __Ready__. If it's still syncing, give it a few minutes and then try again.
+
