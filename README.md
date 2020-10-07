@@ -1,5 +1,5 @@
-# kubefed-aks
-using kubefed to federate AKS clusters
+# Kubernetes Federation with Azure Kubernetes Service
+
 
 # Intro
 Using Azure Kubernetes Service can be challenging,
