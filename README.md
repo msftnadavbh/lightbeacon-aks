@@ -56,4 +56,15 @@ Alright, now we have 2 identical clusters in differnet regions -
 I'm going to use a geo replicated Azure Container Registry for the sake of this tutorial.
 To create one, use this :
 
-`az acr create -n acrr01 -g rg1-eus --sku Premium`
+`az acr create -n youracrname -g rg1-eus --sku Premium`
+
+__Note:__ The Premium SKU is needed for the Geo Replication feature.
+
+After it's finished creating, we will set up a replica for Central US :
+
+`az acr replication create -r youracrname -l centralus`
+
+Since our registry is empty, this should be pretty fast.
+You'll get an output saying that your replica has been created and that it's status has changed to __Syncing__:
+
+![syncing replica](/images/2.png)
