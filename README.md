@@ -51,4 +51,4 @@ __Note__: ARM will automatically select the region where the resource group is l
 
 Alright, now we have 2 identical clusters in differnet regions -
 
-![2 AKS clusters](/images/cluster.png)
+![2 AKS clusters](/images/1.png)
