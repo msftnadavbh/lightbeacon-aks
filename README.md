@@ -90,6 +90,9 @@ As we have Geo Replication enabled, Azure will automatically replicate the image
 Once the build is done, let's attach our ACR to our 2 AKS clusters to make life easier :
 
 `az aks update -n aks-eus -g rg1-eus --attach-acr youracrname`
+
+Second one :
+
 `az aks update -n aks-cus -g rg2-cus --attach-acr youracrname`
 
 Great. Now we have 2 AKS clusters on 2 different regions, each connected to the right replica,
