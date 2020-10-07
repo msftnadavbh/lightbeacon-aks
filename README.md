@@ -7,6 +7,9 @@ In a scenario where you need to faciliate using Kubernetes Federation.
 In this guide, I'm going to explain how to leverage kubefed to successfully construct a Kubernetes Federation between 2 AKS clusters.
 
 ## Prerequesits
+Be sure to git clone this repo :
+
+`git clone https://github.com/msftnadavbh/kubefed-aks.git`
 
 We will create 2 Resource Groups on 2 differnet regions.
 For the sake of the example, I will use East US and Central US.
