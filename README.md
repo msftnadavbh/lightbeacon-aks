@@ -52,3 +52,8 @@ __Note__: ARM will automatically select the region where the resource group is l
 Alright, now we have 2 identical clusters in differnet regions -
 
 ![2 AKS clusters](/images/1.png)
+
+I'm going to use a geo replicated Azure Container Registry for the sake of this tutorial.
+To create one, use this :
+
+`az acr create -n acrr01 -g rg1-eus --sku Premium`
