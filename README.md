@@ -78,3 +78,18 @@ Now let's verify that our replica is up and running :
 
 __Status__ should be __Ready__. If it's still syncing, give it a few minutes and then try again.
 
+We will use a simple Dockerfile that runs a PHP code that will throw an IP out. That's it.
+It's included in the __source__ folder available here.
+Let's navigate to the __source__ folder, and use __acr__ __build__ command to build the Docker Image :
+
+`az acr build -t sample/dockertest:{{.Run.ID}} -r youracrname .`
+
+This should create a sample repositry under your __Azure Container Registry__ created in the first step.
+Once the build is done, let's attach our ACR to our 2 AKS clusters to make life easier :
+
+`az aks update -n aks-eus -g rg1-eus --attach-acr youracrname`
+`az aks update -n aks-cus -g rg2-cus --attach-acr youracrname`
+
+Great. Now we have 2 AKS clusters on 2 different regions, each connected to the right replica,
+With a test Docker Image available on them.
+
