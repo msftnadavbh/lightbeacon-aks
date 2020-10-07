@@ -80,11 +80,13 @@ __Status__ should be __Ready__. If it's still syncing, give it a few minutes and
 
 We will use a simple Dockerfile that runs a PHP code that will throw an IP out. That's it.
 It's included in the __source__ folder available here.
-Let's navigate to the __source__ folder, and use __acr__ __build__ command to build the Docker Image :
+Let's navigate to the __source__ folder, and use __acr__ __build__ command to build the Docker Image and to push it to our registry :
 
 `az acr build -t sample/dockertest:{{.Run.ID}} -r youracrname .`
 
 This should create a sample repositry under your __Azure Container Registry__ created in the first step.
+As we have Geo Replication enabled, Azure will automatically replicate the image to the secondary region.
+
 Once the build is done, let's attach our ACR to our 2 AKS clusters to make life easier :
 
 `az aks update -n aks-eus -g rg1-eus --attach-acr youracrname`
