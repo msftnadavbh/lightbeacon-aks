@@ -34,6 +34,8 @@ Throughout the tutorial I'll be using WSL 2 with Ubuntu 20 on Windows 10.
 
 ## Setting up the environment
 
+__Note__ : I will be using the names 'testaks' for the cluster and 'testaks-rg' for the resource group. Change it to whatever you like.
+
 Create the Resource Group :
 
 `az group create -n testaks-rg -l eastus`
