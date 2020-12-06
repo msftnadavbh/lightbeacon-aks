@@ -1,5 +1,4 @@
-# Running AKS the right way - LightBeacon project on AKS
-
+# LightBeacon project - Running AKS the right way 
 ## Intro
 Using Azure Kubernetes Service can be challenging,
 Building it the right way can be difficult and best practices can sometimes be confusing.
