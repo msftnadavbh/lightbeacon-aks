@@ -1,6 +1,6 @@
 # Running AKS the right way - LightBeacon project on AKS
 
-# Intro
+## Intro
 Using Azure Kubernetes Service can be challenging,
 Building it the right way can be difficult and best practices can sometimes be confusing.
 In this guide, I'm going to explain how to build and deploy AKS the right way for demanding workloads using __Ephemeral OS__ and __nodepools__.
