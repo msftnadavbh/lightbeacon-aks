@@ -1,4 +1,4 @@
-# LightBeacon project - Running AKS the right way 
+# LightBeacon project - Running Azure Kubernetes Service the right way 
 ## Intro
 Using Azure Kubernetes Service can be challenging,
 Building it the right way can be difficult and best practices can sometimes be confusing.
@@ -246,7 +246,7 @@ What you've learned :
 * How to build a Docker Image directly on Azure Container Registry
 * How to seamlessly connect between AKS and Azure Container Registry
 
-Please let me know what you think at : nadavbh@microsoft.com
+Please let me know what you think at : nadebu@outlook.com
 
 
 
