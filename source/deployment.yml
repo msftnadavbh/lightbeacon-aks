@@ -1,0 +1,20 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: staticweb
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: staticweb
+    spec:
+      containers:
+      - name: staticweb
+        image: youracrname.azurecr.io/sample/webpage
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
