@@ -190,3 +190,66 @@ If you have Docker installed, you can try to fetch it using :
 
 Good, now you have a working Azure Container Registry which is attached to AKS with a test web application.
 Now, let's try and deploy it - and see what happens.
+
+Navigate back to __source__ folder, there you'll find a cool file called __deployment.yml__.
+We will use this manifest to deploy to our AKS.
+
+Using your favorite text editor, open the file and edit the line which holds the DNS FQDN of the Azure Container Registry :
+
+![result](/images/13.png)
+
+Edit it the name of your newly created Azure Container Registry and save it.
+
+Let's deploy the static webpage into AKS.
+Use __kubectl apply -f deployment.yml__ command to fire our app into Kubernetes :
+
+![result](/images/14.png)
+
+Now our application is deployed into AKS.
+Let's check where our application landed.
+
+Use __kubectl get pods -n default__ to check our static web pods :
+
+![result](/images/15.png)
+
+Let's deep dive into one of them. I've chosen `web-deployment-6b66dc5d85-52d6w`.
+Use `kubectl describe pod [podname]` and check out the __Events__ section :
+
+![result](/images/16.png)
+
+As you can see, our application landed on the __User__ nodepool, which is meant for our application.
+Now our cluster configuration is complete.
+
+## OPTIONAL : View the application we've just deployed
+
+If you're curious and you want to see the application,
+use this command to make AKS expose your application pods so you can see the web page running :
+
+` kubectl expose deployment web-deployment --type=LoadBalancer --name=web-svc`
+
+This will take sometime to complete.
+You can check the progress at `kubectl get svc` :
+
+![result](/images/17.png)
+
+Notice that our web-svc now has an external IP.
+Open your favorite web browser and let's browse to see what we have :
+
+![result](/images/18.png)
+
+Congratulations! you've finished this tutorial.
+What you've learned :
+
+* Types of nodepools on AKS
+* How to use Ephemeral OS on AKS and VM sizes available for it
+* How to taint your nodepool only for system workloads
+* How to build a Docker Image directly on Azure Container Registry
+* How to seamlessly connect between AKS and Azure Container Registry
+
+Please let me know what you think at : nadavbh@microsoft.com
+
+
+
+
+
+
