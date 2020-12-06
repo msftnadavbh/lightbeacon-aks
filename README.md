@@ -1,18 +1,13 @@
-# Kubernetes Federation with Azure Kubernetes Service
-
+# Running AKS the right way - LightSpeed project on AKS
 
 # Intro
 Using Azure Kubernetes Service can be challenging,
-In a scenario where you need to faciliate using Kubernetes Federation.
-In this guide, I'm going to explain how to leverage kubefed to successfully construct a Kubernetes Federation between 2 AKS clusters.
+Building it the right way can be difficult and best practices can sometimes be confusing.
+In this guide, I'm going to explain how to build and deploy AKS the right way for demanding workloads using __Ephemeral OS__ and __nodepools__.
+This blueprint will create a good base of using AKS and utilzing best practices to maximize performance.
+
 
 ## Prerequesits
-Be sure to git clone this repo :
-
-`git clone https://github.com/msftnadavbh/kubefed-aks.git`
-
-We will create 2 Resource Groups on 2 differnet regions.
-For the sake of the example, I will use East US and Central US.
 
 First, make sure your Azure CLI is properly configured on your workstation.
 You can download Azure CLI from [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
@@ -35,20 +30,16 @@ Throughout the tutorial I'll be using WSL 2 on Windows 10.
 
 ## Setting up the environment
 
-Create the Resource Groups :
+Create the Resource Group :
 
-`az group create -n rg1-eus -l eastus`
+`az group create -n testaks-rg -l eastus`
 
-`az group create -n rg2-cus -l centralus`
 
-After creation has been finished, as we're using this for a Development environment,
-I'm going to use version 1.19 on both of the clusters with 2 nodes each :
+After creation has been finished, as we're using this for a Development environment.
+I'm using __East US__ for demonstration purposes but you can use w/e region close to you.
+I'm going to use version 1.19 with 2 nodepools :
 
 `az aks create -n aks-eus -g rg1-eus -k 1.19.0 -c 2`
-
-Then for the Central US cluster :
-
-`az aks create -n aks-cus -g rg2-cus -k 1.19.0 -c 2`
 
 __Note__: ARM will automatically select the region where the resource group is located at, therefore there is no need for an __-l__ trigger unless you want to specify a different region.
 
