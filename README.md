@@ -2,7 +2,7 @@
 ## Intro
 Using Azure Kubernetes Service can be challenging,
 Building it the right way can be difficult and best practices can sometimes be confusing.
-In this guide, I'm going to explain how to build and deploy AKS the right way for demanding workloads using __Ephemeral OS__ and __nodepools__.
+In this guide, I'm going to explain how to build and deploy AKS the right way for demanding workloads using __Ephemeral OS disks__ and __nodepools__.
 This blueprint will create a good base of using AKS and utilizing best practices to maximize performance.
 I have created LightBeacon in order to make AKS accessible for people who're new to AKS as a whole and wish to have a guide that is simplified and accessible.
 
@@ -51,6 +51,55 @@ __Note__: ARM will automatically select the region where the resource group is l
 Alright, now we have the cluster available in __East US__ :
 
 ![AKS overview](/images/1.png)
+
+Now, let's connect to the fresh cluster.
+
+Use this command to install __kubectl__ on your machine :
+
+`sudo az aks install-cli` 
+
+After we're finished installing kubectl let's use __get-credentials__ to connect to our cluster :
+
+`az aks get-credentials -n testaks -g testaks-rg`
+
+Now, we can run __kubectl get nodes -o wide__ to see what we have currently :
+
+![result](/images/2.png)
+
+Awesome, we have 3 nodes running in a healthy state.
+
+Let's view the current state of our nodepool :
+
+`az aks nodepool list --cluster-name testaks --resource-group testaks-rg -o table`
+
+![result](/images/3.png)
+
+Great, we have one nodepool classified as __System__.
+
+__System__ is the default nodepool selected at the initial creation of the cluster.
+This is to make sure that all __kube-system__ related pods can be deployed without any issue so the cluster's creation can be completed successfully.
+
+We can verify that using the below command :
+
+![result](/images/4.png)
+
+In the current state, our single nodepool will accept all deployments and will co-host the system pods with the application pods.
+Now, let's change the overall structure of the cluster, to accommodate 2 more nodepools, with a tweak.
+We'll add another __System__ nodepool that will host our system pods using __Ephemeral__ disks which will be much faster,
+and a __User__ nodepool that will host our application and will be dedicated to it.
+
+Using this structure, we're omitting issues like __IOPS__ and __Networking throughput__ that can affect our application and our system pods/services,
+by sepearting them from eachother and implementing better governance into AKS.
+
+Let's add our new System nodepool.
+Pay close attention to __--node-taints__ trigger added in the command and to __--node-osdisk-type__ trigger :
+
+`az aks nodepool add --name ephsystem --cluster-name testaks --resource-group testaks-rg --node-vm-size Standard_DS3_v2 --node-osdisk-type Ephemeral --node-taints CriticalAddonsOnly=true:NoSchedule --node-count 2 --mode System`
+
+We've told Azure to create another System nodepool,
+Using a different VM size to accomodate Ephemeral OS disk because of disk cache considerations,
+We've also added a special __taint__ to stop non-system workloads from being scheduled to this new nodepool.
+
 
 I'm going to use a geo replicated Azure Container Registry for the sake of this tutorial.
 To create one, use this :
