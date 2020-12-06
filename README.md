@@ -198,7 +198,7 @@ We will use this manifest to deploy to our AKS.
 
 Using your favorite text editor, open the file and edit the line which holds the DNS FQDN of the Azure Container Registry :
 
-` apiVersion: apps/v1 
+``` apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: web-deployment
@@ -217,7 +217,7 @@ spec:
         image: youracrname.azurecr.io/sample/webpage
         imagePullPolicy: Always
         ports:
-        - containerPort: 80`
+        - containerPort: 80 ```
 
 Change "youracrname" to the name of your newly created Azure Container Registry and save it.
 
