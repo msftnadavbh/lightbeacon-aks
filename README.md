@@ -1,13 +1,16 @@
-# Running AKS the right way - LightSpeed project on AKS
+# Running AKS the right way - LightBeacon project on AKS
 
 # Intro
 Using Azure Kubernetes Service can be challenging,
 Building it the right way can be difficult and best practices can sometimes be confusing.
 In this guide, I'm going to explain how to build and deploy AKS the right way for demanding workloads using __Ephemeral OS__ and __nodepools__.
-This blueprint will create a good base of using AKS and utilzing best practices to maximize performance.
+This blueprint will create a good base of using AKS and utilizing best practices to maximize performance.
+I have created LightBeacon in order to make AKS accessible for people who're new to AKS as a whole and wish to have a guide that is simplified and accessible.
 
 
 ## Prerequesits
+
+An Azure subscription
 
 First, make sure your Azure CLI is properly configured on your workstation.
 You can download Azure CLI from [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
@@ -26,7 +29,7 @@ Then :
 
 This will make stuff easier later on.
 
-Throughout the tutorial I'll be using WSL 2 on Windows 10.
+Throughout the tutorial I'll be using WSL 2 with Ubuntu 20 on Windows 10.
 
 ## Setting up the environment
 
@@ -35,15 +38,18 @@ Create the Resource Group :
 `az group create -n testaks-rg -l eastus`
 
 
-After creation has been finished, as we're using this for a Development environment.
 I'm using __East US__ for demonstration purposes but you can use w/e region close to you.
-I'm going to use version 1.19 with 2 nodepools :
+I'm going to use version 1.19.3 as I'm using this for a Dev environment.
+We'll build the first nodepool normally and then we will make adjustments.
 
-`az aks create -n aks-eus -g rg1-eus -k 1.19.0 -c 2`
+Let's use this command to create the initial cluster :
+
+`az aks create --name testaks --resource-group testaks-rg --kubernetes-version 1.19.3 --node-count 3  --node-vm-size Standard_D2_v3 --network-plugin azure --generate-ssh-keys --debug `
+
 
 __Note__: ARM will automatically select the region where the resource group is located at, therefore there is no need for an __-l__ trigger unless you want to specify a different region.
 
-Alright, now we have 2 identical clusters in differnet regions -
+Alright, now we have the cluster available in __East US__ :
 
 ![2 AKS clusters](/images/1.png)
 
