@@ -16,7 +16,7 @@ You can download Azure CLI from [here](https://docs.microsoft.com/en-us/cli/azur
 
 Download __kubectl__ if you haven't already :
 
-`az aks install-cli`
+`sudo az aks install-cli`
 
 Make sure you're logged in and you have __aks-preview__ extension installed :
 
@@ -54,11 +54,7 @@ Alright, now we have the cluster available in __East US__ :
 
 Now, let's connect to the fresh cluster.
 
-Use this command to install __kubectl__ on your machine :
-
-`sudo az aks install-cli` 
-
-After we're finished installing kubectl let's use __get-credentials__ to connect to our cluster :
+ Let's use __get-credentials__ to connect to our cluster :
 
 `az aks get-credentials -n testaks -g testaks-rg`
 
@@ -99,6 +95,22 @@ Pay close attention to __--node-taints__ trigger added in the command and to __-
 We've told Azure to create another System nodepool,
 Using a different VM size to accomodate Ephemeral OS disk because of disk cache considerations,
 We've also added a special __taint__ to stop non-system workloads from being scheduled to this new nodepool.
+
+After our command has finished running, let's use `az aks nodepool list --cluster-name testaks --resource-group testaks-rg -o table` to check our nodepool state :
+
+![result](/images/5.png)
+
+Great, our new System nodepool is up and running.
+
+Now, let's create the __User__ nodepool for our application :
+
+  `az aks nodepool add --name appnopool --cluster-name testaks --resource-group testaks-rg --node-vm-size Standard_D2_v3 --node-count 2 --mode User`
+
+__Note__ : Pay attention that we're back to the original VM size since we do not have a special need for Ephemeral disks. also,
+I'm using a small VM size since this is a dev environment, in a production workload, use the right VM size that is applicable to your application.
+Also, there are no taints here since we want this nodepool to be accessible.
+
+
 
 
 I'm going to use a geo replicated Azure Container Registry for the sake of this tutorial.
