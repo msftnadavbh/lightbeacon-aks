@@ -10,7 +10,7 @@ I have created LightBeacon in order to make AKS accessible for people who're new
 
 ## Prerequesits
 
-An Azure subscription
+* An Azure subscription
 
 First, make sure your Azure CLI is properly configured on your workstation.
 You can download Azure CLI from [here](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
@@ -51,7 +51,7 @@ __Note__: ARM will automatically select the region where the resource group is l
 
 Alright, now we have the cluster available in __East US__ :
 
-![2 AKS clusters](/images/1.png)
+![AKS overview](/images/1.png)
 
 I'm going to use a geo replicated Azure Container Registry for the sake of this tutorial.
 To create one, use this :
