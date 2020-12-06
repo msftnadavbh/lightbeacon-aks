@@ -217,7 +217,8 @@ spec:
         image: youracrname.azurecr.io/sample/webpage
         imagePullPolicy: Always
         ports:
-        - containerPort: 80 ```
+        - containerPort: 80
+```
 
 Change "youracrname" to the name of your newly created Azure Container Registry and save it.
 
