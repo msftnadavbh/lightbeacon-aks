@@ -120,7 +120,7 @@ Running our `az aks nodepool list --cluster-name testaks --resource-group testak
 ![result](/images/6.png)
 
 Now, before we eliminate our old nodepool, let's verify a few things.
-Let's use __kubectl get podes -n kube-system__ to view our systempods, 
+Let's use __kubectl get pods -n kube-system__ to view our systempods, 
 And deep dive into one of them using __kubectl describe pod__.
 
 For this example, let's checkout our __CoreDNS__ pod and scroll down to __Tolerations__:
@@ -171,5 +171,6 @@ Now, let's attach our newly created Container Registry to AKS, the easy way :
 
 `az aks update -n testaks -g testaks-rg --attach-acr youracrname`
 
+We are good to go now.
 
 
