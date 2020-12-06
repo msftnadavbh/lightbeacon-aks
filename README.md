@@ -167,6 +167,8 @@ For this, let's create an Azure Container Registry that will host our test appli
 
 `az acr create -n youracrname -g testaks-rg --sku Standard`
 
+__Note__ : change 'youracrname' to a unique name for your Container Registry.
+
 Now, let's attach our newly created Container Registry to AKS, the easy way :
 
 `az aks update -n testaks -g testaks-rg --attach-acr youracrname`
@@ -196,9 +198,28 @@ We will use this manifest to deploy to our AKS.
 
 Using your favorite text editor, open the file and edit the line which holds the DNS FQDN of the Azure Container Registry :
 
-![result](/images/13.png)
+` apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: staticweb
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: staticweb
+    spec:
+      containers:
+      - name: staticweb
+        image: youracrname.azurecr.io/sample/webpage
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80`
 
-Edit it the name of your newly created Azure Container Registry and save it.
+Change "youracrname" to the name of your newly created Azure Container Registry and save it.
 
 Let's deploy the static webpage into AKS.
 Use __kubectl apply -f deployment.yml__ command to fire our app into Kubernetes :
