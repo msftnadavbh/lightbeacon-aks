@@ -173,4 +173,20 @@ Now, let's attach our newly created Container Registry to AKS, the easy way :
 
 We are good to go now.
 
+Let's git clone this repo into a folder called __demo__ :
 
+` mkdir demo && cd demo && git clone https://github.com/msftnadavbh/lightbeacon-aks.git && cd lightbeacon-aks/source`
+
+We've have cloned the repo and we're into the __source__ folder, which holds a nice Dockerfile running a sample PHP webpage.
+Let's use __az acr build__ to build the application directly into our ACR :
+
+`az acr build -t sample/webpage -r youracrname .`
+
+Now we're building the Docker image without the need of a Docker engine, directly on Azure.
+If you have Docker installed, you can try to fetch it using :
+
+`docker pull youracrname.azurecr.io/sample/webpage:latest`
+
+
+Good, now you have a working Azure Container Registry which is attached to AKS with a test web application.
+Now, let's try and deploy it - and see what happens.
